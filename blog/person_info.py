@@ -65,6 +65,7 @@ def person_edit(request):
         'user_head': head['user_head'],
         'email': head['email'] if head['email'] else '',
         'introduce': head['introduce'],
+        'real_name': head['real_name'],
         'inPersonInfo': True
     })
 
@@ -72,6 +73,7 @@ def person_edit(request):
 def person_change(request):
     user_head = request.FILES.get("new_head", None)
     email = request.POST.get('email')
+    real_name = request.POST.get('real_name')
     introduce = request.POST.get('introduce')
     name = tool.savePic(user_head)
     user_id = request.COOKIES.get('user_id')
@@ -82,5 +84,7 @@ def person_change(request):
     if name: user.user_head = name
     if user.introduce != introduce:
         user.introduce = introduce
+    if user.real_name != real_name:
+        user.real_name = real_name
     user.save()
     return HttpResponseRedirect('person_info')

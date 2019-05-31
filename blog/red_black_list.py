@@ -7,8 +7,8 @@ import blog.models as models
 def red_black_list(request):
     head = tool.getOnlineUser(request)
 
-    red_rows = models.red_black.objects.filter(is_red=True).order_by('-score')
-    black_rows = models.red_black.objects.filter(is_red=False).order_by('-score')
+    red_rows = models.red_black.objects.filter(is_red=True).order_by('-score')[:10]
+    black_rows = models.red_black.objects.filter(is_red=False).order_by('-score')[:10]
     red_list = []
     black_list = []
     num = 1

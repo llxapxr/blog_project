@@ -14,11 +14,11 @@ def jury_page(request):
             'jury_introduction': ju.introduce,
             'jury_head': tool.getHeadPath(ju.user_head),
         })
-
+    pic_ad = tool.getOnePicPath(tool.getStaticData('pic_ad'))
     return render(request, "jury.html", {
         'head': tool.getOnlineUser(request),
         'title': '评审团',
         'list': data,
         'isJury': True,
-        'pic_ad': tool.getOnePicPath('1.jpg')
+        'pic_ad': pic_ad
     })

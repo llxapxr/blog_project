@@ -9,23 +9,9 @@ import blog.search_detail as search_detail
 import blog.user as user
 import blog.company as company
 import blog.tests as tests
+import blog.edit_db as edit_db
 
 urlpatterns = [
-    # re_path(r'^head$', views.yige_head, name='head'),
-    # re_path(r'^end$', views.yige_end, name='end'),
-    # re_path(r'^index$', views.index, name='index'),
-    # re_path(r'^guanzhu$', views.guanzhu, name='guanzhu'),
-    # re_path(r'^userdetail[s]?$', views.userdetail, name='userdetail'),
-    # re_path(r'^login$', views.login, name='login'),
-    # re_path(r'^guanzhuyigequan$', views.guanzhuyigequan, name='guanzhuyigequan'),
-    # re_path(r'^register$', views.register, name='register'),
-    # re_path(r'^userset$', views.userset, name='userset'),
-    # re_path(r'^wenzhang$', views.wenzhang, name='wenzhang'),
-    # re_path(r'^xiewenzhang$', views.xiewenzhang, name='xiewenzhang'),
-    # re_path(r'^yigequan$', views.yigequan, name='register'),
-
-    # re_path(r'^test_img_index', tests.test_img_index),
-    # re_path(r'^test_img_upload', tests.test_img_upload),
     # 首页
     re_path(r'^index$', index.index),
     re_path(r'^carousel_map$', index.carousel_map),
@@ -68,5 +54,8 @@ urlpatterns = [
     re_path(r'^company_post_data$', company.company_post_data),
     # 测试
     re_path(r'^test$', tests.test),
-
+    # 修改
+    re_path(r'^edit_page$', edit_db.edit_page),
+    re_path(r'^edit_pic$', edit_db.edit_pic),
+    re_path(r'^edit_red_black$', edit_db.edit_red_black),
 ]

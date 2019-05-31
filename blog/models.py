@@ -170,3 +170,15 @@ class collection_complaint(models.Model):
 
     def __unicode__(self):
         return str(self.id)
+
+
+class static_data(models.Model):
+    key = models.CharField(max_length=50, verbose_name='键')
+    value = models.CharField(max_length=50, verbose_name='值')
+
+    class Meta:
+        verbose_name = '静态资源'
+        verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return str(self.id)

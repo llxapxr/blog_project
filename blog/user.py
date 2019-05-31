@@ -37,10 +37,11 @@ def login(request):
 def register(request):
     user_name = request.GET.get('user_name')
     password = request.GET.get('password')
+    type = request.GET.get('type')
     try:
         models.user.objects.get(username=user_name)
     except models.user.DoesNotExist:
-        user = models.user(username=user_name, password=password, type=tool.GENERAL_USER)
+        user = models.user(username=user_name, password=password, real_name='', type=type)
         user.save()
         return HttpResponseRedirect('login_page')
     else:

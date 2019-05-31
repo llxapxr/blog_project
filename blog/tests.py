@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http.response import JsonResponse, HttpResponse
 import blog.tool as tool
 import blog.models as models
 

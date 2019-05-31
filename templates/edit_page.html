@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="edit_pic" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>轮播图1</p>
+    <input name="pic1_title" class="form-control" placeholder="标题1"><br>
+    <input name="pic1" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+
+    <p>轮播图2</p>
+    <input name="pic2_title" class="form-control" placeholder="标题2"><br>
+    <input name="pic2" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+
+    <p>轮播图3</p>
+    <input name="pic3_title" class="form-control" placeholder="标题3"><br>
+    <input name="pic3" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <p>右侧广告</p>
+    <input name="pic_ad" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <button type="submit">修改</button>
+</form>
+<div style="background: #0D1206;width: 100%;height: 10px;margin-top: 10px;margin-bottom: 10px"></div>
+<form action="edit_red_black" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input name="red1" class="form-control" placeholder="红1">头像
+    <input name="red1_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red2" class="form-control" placeholder="红2">头像
+    <input name="red2_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red3" class="form-control" placeholder="红3">头像
+    <input name="red3_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red4" class="form-control" placeholder="红4">头像
+    <input name="red4_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red5" class="form-control" placeholder="红5">头像
+    <input name="red5_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red6" class="form-control" placeholder="红6">头像
+    <input name="red6_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red7" class="form-control" placeholder="红7">头像
+    <input name="red7_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red8" class="form-control" placeholder="红8">头像
+    <input name="red8_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red9" class="form-control" placeholder="红9">头像
+    <input name="red9_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="red10" class="form-control" placeholder="红10">头像
+    <input name="red10_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black1" class="form-control" placeholder="黑1">头像
+    <input name="black1_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black2" class="form-control" placeholder="黑2">头像
+    <input name="black2_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black3" class="form-control" placeholder="黑3">头像
+    <input name="black3_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black4" class="form-control" placeholder="黑4">头像
+    <input name="black4_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black5" class="form-control" placeholder="黑5">头像
+    <input name="black5_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black6" class="form-control" placeholder="黑6">头像
+    <input name="black6_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black7" class="form-control" placeholder="黑7">头像
+    <input name="black7_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black8" class="form-control" placeholder="黑8">头像
+    <input name="black8_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black9" class="form-control" placeholder="黑9">头像
+    <input name="black9_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <input name="black10" class="form-control" placeholder="黑10">头像
+    <input name="black10_head" type="file" class="file"
+           id="fileInput"
+           accept="image/png, image/jpeg, image/gif, image/jpg"><br>
+    <button type="submit">修改</button>
+</form>
+</body>
+</html>

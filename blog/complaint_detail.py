@@ -44,59 +44,52 @@ def complaint_detail(request):
 
 def complaint_jury(request):
     # post_id = int(request.GET.get('post_id'))
-    post_id = 1
-    article_list = models.complaint.objects.get(id=post_id)
-    article_id = int(article_list.id)
-    comment_list = models.comment.objects.filter(complaint_id_id=article_id)
-    jury_flag = False
-    dataset = {}
-    for com in comment_list:
-        user_id = int(com.user_id_id)
-        user_list = models.user.objects.filter(Q(id=user_id) & Q(is_jury=1))
-        print(len(user_list))
-        if len(user_list) > 0:
-            user_list = models.user.objects.get(id=user_id)
-            jury_list = models.jury.objects.get(user_id_id=user_id)
-            data = {
-                'user_id': com.user_id_id,
-                'user_name': user_list.username,
-                'user_head': tool.getHeadPath(user_list.user_head),
-                'real_name': jury_list.real_name,
-                'introduce': jury_list.jury_introduce,
-                'content': com.content,
-                'time': com.create_time,
-            }
-            dataset[com.user_id_id] = data
-            jury_flag = True
-    if jury_flag:
-        return dataset
-    else:
-        return
+    # article_list = models.complaint.objects.get(id=post_id)
+    # article_id = int(article_list.id)
+    # comment_list = models.comment.objects.filter(complaint_id_id=article_id)
+    # jury_flag = False
+    # dataset = {}
+    # for com in comment_list:
+    #     user_id = int(com.user_id_id)
+    #     user_list = models.user.objects.filter(Q(id=user_id) & Q(is_jury=1))
+    #     print(len(user_list))
+    #     if len(user_list) > 0:
+    #         user_list = models.user.objects.get(id=user_id)
+    #         jury_list = models.jury.objects.get(user_id_id=user_id)
+    #         data = {
+    #             'user_id': com.user_id_id,
+    #             'user_name': user_list.username,
+    #             'user_head': tool.getHeadPath(user_list.user_head),
+    #             'real_name': jury_list.real_name,
+    #             'introduce': jury_list.jury_introduce,
+    #             'content': com.content,
+    #             'time': com.create_time,
+    #         }
+    #         dataset[com.user_id_id] = data
+    #         jury_flag = True
+    # if jury_flag:
+    #     return dataset
+    # else:
+    #     return
+    return
 
 
 def complaint_reply(request):
-    global item
     post_id = request.GET.get('post_id')
-    comment_list = models.comment.objects.filter(complaint_id=post_id)
-    # pic = request.FILES.get("pic", None)
-    # flag = True
-    # while(flag):
-    #     res = tool.savePic(pic)
-    #     if res:
-    #         flag = False
-    data = {'list': []}
-
+    comment_list = models.comment.objects.filter(complaint_id=post_id,
+                                                 user_id__type=tool.GENERAL_USER)
+    l = []
     for e in comment_list:
         user = e.user_id
-        if not user.is_jury:
-            data['list'].append({
-                'user_id': user.id,
-                'user_name': user.username,
-                'user_head': tool.getHeadPath(user.user_head),
-                'content': e.content,
-                'time': tool.dbTimeFormat(e.create_time),
-            })
-    return JsonResponse(data)
+        l.append({
+            'user_id': user.id,
+            'user_name': user.username,
+            'user_head': tool.getHeadPath(user.user_head),
+            'content': e.content,
+            'time': tool.dbTimeFormat(e.create_time),
+        })
+
+    return JsonResponse({'list': l})
 
 
 def complaint_comment(request):

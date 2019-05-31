@@ -67,6 +67,7 @@ def getOnlineUser(request):
             'user_id': user_id,
             'user_head': getHeadPath(user.user_head),
             'user_name': user.username,
+            'real_name': user.real_name,
             'introduce': user.introduce,
             'email': user.email,
             'islogin': islogin,
@@ -114,3 +115,24 @@ def getComplaintData(complaint_list):
             'type': status_btn_type[e.status]
         })
     return l
+
+
+def getStaticData(key):
+    try:
+        data = models.static_data.objects.get(key=key)
+    except models.static_data.DoesNotExist:
+        return ''
+    return data.value
+
+
+def saveStaticData(key, value):
+    try:
+        data = models.static_data.objects.get(key=key)
+    except models.static_data.DoesNotExist:
+        data = models.static_data(key=key, value=value)
+        data.save()
+        return
+    else:
+        if value is not None and value != '' and value is not False:
+            data.value = value
+            data.save()
