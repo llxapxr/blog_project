@@ -76,8 +76,7 @@ def complaint_jury(request):
 
 def complaint_reply(request):
     post_id = request.GET.get('post_id')
-    comment_list = models.comment.objects.filter(complaint_id=post_id,
-                                                 user_id__type=tool.GENERAL_USER)
+    comment_list = models.comment.objects.filter(complaint_id=post_id)
     l = []
     for e in comment_list:
         user = e.user_id
