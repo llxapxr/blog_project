@@ -1,0 +1,53 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div id="company_post_list" class="col-md-10">
+
+            </div>
+
+            <div class="col-md-1"></div>
+
+        </div>
+
+    </div>
+    <script>
+
+        function loadMore() {
+            $.get("company_post_data",
+                {key: '{{ key }}'},
+                function (data) {
+                    $('#company_complaint_template').tmpl(data['list']).appendTo('#company_post_list');
+                })
+        }
+
+        loadMore()
+    </script>
+    <script id="company_complaint_template" type="text/x-jquery-tmpl">
+    <div onclick="toDetail(${id})">
+        <img src="${head}" style="float: left;margin-right:60px" height="100px"/>
+        <div class="center-block">
+            <img src="${pic}" style="float: right" height="100px"/>
+            <h3 style="color: black">${title}</h3>
+            <p style="color: #999;">${content}</p>
+            <div>
+                <a href="#" style="color: #999;margin-left: 4px;margin-right: 4px">
+                <span style="font-size: 12px;"class="glyphicon glyphicon-user"></span>
+                <span style="font-size: 13px">${user_name}</span>
+                <span style="font-size: 12px"class="glyphicon glyphicon-comment"></span>
+                <span style="font-size: 14px">${reply_amount}</span>
+                </a>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+
+
+
+    </script>
+
+{% endblock %}

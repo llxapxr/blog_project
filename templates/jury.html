@@ -1,0 +1,116 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <style type="text/css">
+        #yige_table .list-group-item {
+            border: 0px;
+        }
+
+        #yige_table .list-group-item {
+            float: left;
+        }
+
+        #yige_table2 {
+            margin-left: 109px;
+            margin-top: -88px;
+        }
+
+        #yige_table3 {
+            margin-left: 109px;
+            margin-top: -88px;
+        }
+
+        .list-group-item img {
+            width: 50px;
+        }
+
+        .list-group-item .jury_font {
+            font-weight: bold;
+        }
+
+        .list-group-item .jury_text_font {
+            color: darkgray;
+            font-size: 12px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#a1").click(function () {
+                $("#news_list").removeClass("hidden");
+                $("#laywer_list").addClass("hidden");
+            })
+
+            $("#a2").click(function () {
+                $("#laywer_list").removeClass("hidden");
+                $("#news_list").addClass("hidden");
+            })
+        })
+    </script>
+    </head>
+
+    <body>
+    <!-- 页面主体  -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-7">
+                <span>
+						第三方意见联盟，为投诉双方提供专业建议。
+						所有建议不代表平台立场，目前仅开放邀请入驻渠道。
+                </span>
+                <ul class="list-group" style="margin-top: 60px">
+                    {% for e in list %}
+                        <li class="list-group-item ">
+                            <img src="{{ e.jury_head }}">
+                            <span class="jury_title_font">{{ e.jury_name }}</span>
+                            <span class="text jury_text_font">{{ e.jury_introduction }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+
+            <div class="col-md-3 hidden-xs hidden-sm" style="height: 500px;">
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <a
+                            {% if head.islogin %}
+                                href="write_page"
+                            {% else %}
+                                href="login_page"
+                            {% endif %}
+                                class="col-md-12" style="margin-bottom: 6px"><img
+                            src="../static/img/post.png" width="100%"></a>
+                    <a href="#" class="col-md-12" style="margin-top: -3px;margin-bottom: 6px">
+                        <img src="../static/img/qiri.png" width="100%">
+                    </a>
+                    <a href="red_black_list" class="col-md-12" style="margin-bottom: 6px"><img
+                            src="../static/img/qiye.png" width="100%"></a>
+                </div>
+
+
+                <!-- 侧边广告 -->
+                <div style="margin-top:12px" class="row">
+                    <img src="{{ pic_ad }}" class="col-md-12" width="100%" alt="广告"/>
+                </div>
+
+                <div id="hot_articles_list" class="row" style="margin-top: 6px">
+                    <!-- 推荐的文章最多3个 -->
+                    {#                                <div class="col-md-12">#}
+                    {#                                    <a href="#" style="color: #000000;text-decoration: none"><h4>文章1</h4></a>#}
+                    {#                                    <a href="#" style="text-decoration: none">#}
+                    {#                                        <p style="color: #999999">aawadahuwinsidnfisjefiusjeifunin</p>#}
+                    {#                                    </a>#}
+                    {#                                    <hr>#}
+                    {#                                </div>#}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

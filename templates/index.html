@@ -1,0 +1,142 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <div class="container">
+        <!-- 页面内容 start -->
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+
+                <!-- 轮播图 start -->
+                <div id="myCarousel" style="margin-bottom: 15px" class="carousel slide">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner" style="border-radius: 10px">
+                        <div class="item active div-img">
+                            <a href="#"> <img src="../static/pic/1.jpg" width="100%" height="100%"
+                                              class="carousel-img"
+                                              alt="First slide"></a>
+                            <div class="carousel-caption">标题 1</div>
+                        </div>
+                        <div class="item div-img">
+                            <a href="#"><img src="../static/pic/2.jpg" width="100%" height="100%"
+                                             class="carousel-img"
+                                             alt="Second slide"></a>
+                            <div class="carousel-caption">标题 2</div>
+                        </div>
+                        <div class="item div-img">
+                            <a href="#"><img src="../static/pic/3.jpg" width="100%" height="100%"
+                                             class="carousel-img"
+                                             alt="Third slide"></a>
+                            <div class="carousel-caption">标题 3</div>
+                        </div>
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a class="left carousel-control" href="#myCarousel" role="button"
+                       data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button"
+                       data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <!-- 轮播图 end -->
+
+                <!-- 文章主体 statr -->
+                <div class="row">
+                    <div id="posts_list">
+                    </div>
+                    <a onclick="loadMore()" style="color: #999999"><p style="text-align: center">
+                        加载更多</p></a>
+
+                </div>
+                <!-- 文章主体 end -->
+            </div>
+            <!-- 侧边栏 -->
+            <!--hidden-xs hidden-sm 小屏幕和超小屏幕隐藏-->
+            <div class="col-md-3 hidden-xs hidden-sm" style="height: 500px;">
+                <div class="row">
+
+                </div>
+                <div class="row">
+                    <a
+                            {% if head.islogin %}
+                                href="write_page"
+                            {% else %}
+                                href="login_page"
+                            {% endif %}
+                                class="col-md-12" style="margin-bottom: 6px"><img
+                            src="../static/img/post.png" width="100%"></a>
+                    <a href="#" class="col-md-12" style="margin-top: -3px;margin-bottom: 6px">
+                        <img src="../static/img/qiri.png" width="100%">
+                    </a>
+                    <a href="red_black_list" class="col-md-12" style="margin-bottom: 6px"><img
+                            src="../static/img/qiye.png" width="100%"></a>
+                </div>
+
+
+                <!-- 侧边广告 -->
+                <div style="margin-top:12px" class="row">
+                    <img src="{{ pic_ad }}" class="col-md-12" width="100%" alt="广告"/>
+                </div>
+
+                <div id="hot_articles_list" class="row" style="margin-top: 6px">
+                    <!-- 推荐的文章最多3个 -->
+                    {#                                <div class="col-md-12">#}
+                    {#                                    <a href="#" style="color: #000000;text-decoration: none"><h4>文章1</h4></a>#}
+                    {#                                    <a href="#" style="text-decoration: none">#}
+                    {#                                        <p style="color: #999999">aawadahuwinsidnfisjefiusjeifunin</p>#}
+                    {#                                    </a>#}
+                    {#                                    <hr>#}
+                    {#                                </div>#}
+                </div>
+            </div>
+        </div>
+        <!-- 页面内容 end -->
+    </div>
+    <script>
+        var p = 1
+
+        function loadMore() {
+            $.get("latest_posts",
+                {page: p},
+                function (data) {
+                    $('#complaint_template').tmpl(data['list']).appendTo('#posts_list');
+                })
+            p = p + 1
+        }
+
+        function loadArticle() {
+            $.get("hot_articles",
+                {},
+                function (data) {
+                    l = data['list']
+                    for (let e of l) {
+                        html_str = '                         <div class="col-md-12">\n' +
+                            '                                    <a href="#" style="color: #000000;text-decoration: none"><h4>' +
+                            e.title +
+                            '</h4></a>\n' +
+                            '                                    <a href="#" style="text-decoration: none">\n' +
+                            '                                        <p style="color: #999999">' +
+                            e.content +
+                            '</p>\n' +
+                            '                                    </a>\n' +
+                            '                                    <hr>\n' +
+                            '                                </div>'
+                        $("#hot_articles_list").append(html_str)
+                    }
+                })
+        }
+
+        loadMore()
+        loadArticle()
+    </script>
+
+{% endblock %}

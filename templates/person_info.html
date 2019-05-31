@@ -1,0 +1,205 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <style type="text/css">
+        .hidden {
+            display: none;
+        }
+
+        .list-group-item {
+            border: 0px;
+        }
+
+        .list-group-item {
+            float: left;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#a1").click(function () {
+                $(".list-group .list-group-item").removeClass("disabled");
+                $("#tab1").removeClass("hidden");
+                $("#tab2").addClass("hidden");
+                $("#tab3").addClass("hidden");
+                $("#a1").addClass("disabled");
+            })
+
+            $("#a2").click(function () {
+                $(".list-group .list-group-item").removeClass("disabled");
+                $("#tab1").addClass("hidden");
+                $("#tab2").removeClass("hidden");
+                $("#tab3").addClass("hidden");
+                $("#a2").addClass("disabled");
+            })
+            $("#a3").click(function () {
+                $(".list-group .list-group-item").removeClass("disabled");
+                $("#tab1").addClass("hidden");
+                $("#tab2").addClass("hidden");
+                $("#tab3").removeClass("hidden");
+                $("#a3").addClass("disabled");
+            })
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#sgzlt").click(function () {
+
+                // 隐藏初始的导航栏
+                $("#div1").hide();
+                $("#div2").show();
+            })
+            $("#a8").click(function () {
+
+                // 隐藏初始的导航栏
+                $("#div1").show();
+                $("#div2").hide();
+            })
+        })
+
+
+    </script>
+    <div class="container">
+        <!-- 页面内容 start -->
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                <div>
+                    <img class="img-circle"
+                         src="{{ user_head }}"
+                         width="70px"
+                         height="70px">
+                    <span style="margin-left: 20px;font-size: 18px;font-weight: bold">{{ user_name }}</span>
+                </div>
+
+                <div class="row" style="margin-top: 15px;margin-left: 0px">
+
+                    <div class="list-group" style="font-size: 16px;font-weight: bold" id="div1">
+                        <a href="#" class="list-group-item disabled" id="a1">
+                            <span class="glyphicon glyphicon-send"></span> 投诉
+                        </a>
+
+                        <a href="#" class="list-group-item" id="a2">
+                            <span class="glyphicon glyphicon-heart"></span> 收藏
+                        </a>
+                        <a href="#" class="list-group-item" id="a3">
+                            <span class="glyphicon glyphicon-console"></span> 评论
+                        </a>
+
+                    </div>
+
+                </div>
+                <hr style="margin-top: 0px">
+                <div id="tab1">
+                </div>
+                <div id="tab2" class="hidden">
+                </div>
+                <div id="tab3" class="hidden">
+                </div>
+            </div>
+
+            <!-- 侧边栏 -->
+            <!--hidden-xs hidden-sm 小屏幕和超小屏幕隐藏-->
+
+            <div class="col-md-3 hidden-xs hidden-sm" style="height: 500px;">
+                <!-- 个人介绍 -->
+                <div class="row" style="margin-top:12px;padding-left: 0px;padding-right: 0px">
+                    <div class="col-md-12">
+                        <div style="float:left;" id="grjs1">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <A href="" style="text-decoration: none;color: #999999"><span
+                                    style="font-size: 14px">个人介绍</span></A>
+                        </div>
+                        <div id="bj1" style="float: right;color: #999999">
+                            <a href="person_edit">
+                                <button class=" btn btn-info">编辑</button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p></p>
+                    </div>
+                    <div class="col-md-12" id="text1">
+                        <div style="float:left;">
+                            {{ introduce }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <!-- 页面内容 end -->
+
+    </div>
+    <script>
+        function loadMineComplain() {
+            $.get("person_complain",
+                {},
+                function (data) {
+                    $('#complaint_template').tmpl(data['list']).appendTo('#tab1');
+                })
+        }
+
+        function loadCollection() {
+            $.get("person_collection",
+                {},
+                function (data) {
+                    $('#complaint_template').tmpl(data['list']).appendTo('#tab2');
+                })
+        }
+
+        function loadReply() {
+            $.get("person_reply",
+                {},
+                function (data) {
+                    l = data['list']
+                    for (let e of l) {
+                        html_str = '                <div class="col-md-12" onclick="toDetail(' +
+                            e.id +
+                            ')">\n' +
+                            '                    <div class="center-block">\n' +
+                            '                        <a href="#">\n' +
+                            '                            <img src="' +
+                            e.pic +
+                            '" style="float: right" height="100px"/>\n' +
+                            '                        </a>\n' +
+                            '                        <a href="#" style="color: black"><h3>\n' +
+                            e.title +
+                            '                        </h3></a>\n' +
+                            '                        <p style="color: #999">\n' +
+                            '                        <h3 style="color: black">\n' +
+                            '回复:' + e.reply_content +
+                            '                        </h3>\n' +
+                            '                        <div>\n' +
+                            '                            <!-- 发帖人 -->\n' +
+                            '                            <a href="#" style="color: #999;margin-left: 4px;margin-right: 4px">\n' +
+                            '                                                <span style="font-size: 12px"\n' +
+                            '                                                      class="glyphicon glyphicon-user"></span>\n' +
+                            '                                <span style="font-size: 13px">\n' +
+                            e.user_name +
+                            '                                                </span>\n' +
+                            '                            </a>\n' +
+                            '                            <!-- 评论数 -->\n' +
+                            '                            <span style="color: #999">\n' +
+                            '                                                <span style="font-size: 12px"\n' +
+                            '                                                      class="glyphicon glyphicon-comment"></span>\n' +
+                            '                                                <span style="font-size: 14px">' +
+                            e.reply_amount +
+                            '</span>\n' +
+                            '                                            </span>\n' +
+                            '                        </div>\n' +
+                            '\n' +
+                            '                    </div>\n' +
+                            '                    <hr>\n' +
+                            '                </div>\n'
+                        $("#tab3").append(html_str)
+                    }
+                })
+        }
+
+        loadMineComplain()
+        loadCollection()
+        loadReply()
+    </script>
+{% endblock %}

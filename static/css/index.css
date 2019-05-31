@@ -1,0 +1,63 @@
+.linoz-top {
+    /* 设置宽度高度背景颜色 */
+    height: 50px;
+    width: 100%;
+    background: #ff9949;
+    linoz-top: 0; /*离顶部的距离为0*/
+}
+
+.linoz-top ul {
+    /* 清除ul标签的默认样式 */
+    width: 80%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+}
+
+.linoz-top li {
+    float: left; /* 使li内容横向浮动，即横向排列  */
+    margin-right: 50px; /* 两个li之间的距离*/
+}
+
+.linoz-top li a {
+    /* 设置链接内容显示的格式*/
+    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 12pt;
+    text-decoration: none; /* 去除下划线 */
+}
+
+.linoz-top li a:hover {
+    /* 鼠标选中时背景变为黑色 */
+    background-color: #ffa770;
+}
+
+.select {
+    background-color: #ff7d12;
+}
+
+.linoz-top ul li ul {
+    /* 设置二级菜单 */
+    width: auto;
+    background: #ff9949;
+    z-index: 3;
+    position: absolute;
+    display: none; /* 默认隐藏二级菜单的内容 */
+
+}
+
+.linoz-top ul li ul li {
+    /* 二级菜单li内容的显示 */
+    margin-right: 0;
+    float: none;
+    text-align: center;
+}
+
+.linoz-top ul li:hover ul {
+    /* 鼠标选中二级菜单内容时 */
+    display: block;
+}

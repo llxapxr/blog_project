@@ -1,0 +1,169 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <style>
+        .div-img {
+            height: 250px;
+        }
+
+        .divMain {
+            margin-top: -15px;
+        }
+
+        .navbar {
+            border: 0px;
+            background-color: #FFFFFF;
+        }
+
+        .list-group, .list-group-item {
+            border: 0px;
+            font-size: 16px;
+        }
+
+        .spanText {
+            font-size: 16px;
+            color: #999999;
+        }
+    </style>
+
+    <!-- 页面主体  -->
+    <div class="container">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a class="list-group-item disabled" id="a1">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span style="margin-left: 10px">个人资料</span>
+                    </a>
+                    <a class="list-group-item" id="a2">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        <span style="margin-left: 10px">账号设置</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <!-- 模板 -->
+                <div hidden style="width: 100%">
+                    <table style="width: 100%">
+                        <tr style="width: 100%">
+                            <td width="25%"></td>
+                            <td style="width: 75%"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 基本资料 默认显示 -->
+                <div id="tab1" style="width: 70%">
+                    <form action="person_change" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <img id="userHead"
+                             onclick="changeButton()"
+                             src="{{ user_head }}" height="100px" width="100px"
+                             style="border-radius: 50%;margin-right: 50px">
+                        <input type="file"
+                               id="imgfile"
+                               name="new_head"
+                               onchange="selectImg(this)"
+                               style="opacity: 1; display: none;">
+                        </button>
+                        <br><br><br>
+                        <span style="font-size: 16px;color: #999999">电子邮箱</span></td>
+                        <input
+                                name="email"
+                                class="form-control"
+                                type="email"
+                                style="background-color: #eeeeee"
+                                value="{{ email }}"/>
+                        <br><br><br>
+                        <span class="spanText">个人简介</span>
+                        <input
+                                name="introduce"
+                                class="form-control"
+                                style="width: 100%;margin-bottom: 5px"
+                                value="{{ introduce }}"/>
+
+                        <br><br><br>
+                        <button type="submit" class="btn btn-info">保 存</button>
+                    </form>
+                </div>
+                <!-- 账号设置 暂不开启 -->
+                <div hidden id="tab2" style="width: 100%">
+                    <table style="width: 100%">
+                        <tr style="width: 100%">
+                            <td width="25%"><span class="spanText">账号登出</span></td>
+                            <td style="width: 75%">
+                                <button id="sczh" class="btn btn-info disabled">账号登出</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#sczh").click(function () {
+                //账号登出
+                window.location.href = 'logout'
+                alert("账号登出！");
+            })
+
+            $("#a1").click(function () {
+
+                $(".col-md-7 >div").hide();
+                $("#tab1").show();
+
+
+                $(".list-group .list-group-item").removeClass("disabled");
+                $("#a1").addClass("disabled");
+            })
+            $("#a2").click(function () {
+
+                $(".col-md-7 >div").hide();
+                $("#tab2").show();
+                $(".list-group .list-group-item").removeClass("disabled");
+                $("#a2").addClass("disabled");
+            })
+        })
+
+
+        function changeButton() {
+            $("#imgfile").click()
+        }
+
+        //建立一個可存取到該file的url
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+
+        var iMaxFilesize = 2097152; //2M
+        function selectImg(e) {
+            var oFile = e.files[0];    //读取文件
+            var rFilter = /^(image\/bmp|image\/gif|image\/jpeg|image\/png|image\/tiff)$/i;
+            if (!rFilter.test(oFile.type)) {
+                alert("文件格式必须为图片");
+                return;
+            }
+            if (oFile.size > iMaxFilesize) {
+                alert("图片大小不能超过2M");
+                return;
+            }
+            var objUrl = getObjectURL(oFile);
+            console.log("objUrl = " + objUrl);
+            if (objUrl) {
+                $("#userHead").attr("src", objUrl);
+            }
+        };
+    </script>
+{% endblock %}

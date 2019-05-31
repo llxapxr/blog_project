@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/model/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="../static/model/jquery-3.3.1.min.js"></script>
+    <script src="../static/model/jquery.tmpl.js"></script>
+    <script src="../static/model/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <style type="text/css">
+        .linoz-top {
+            /* 设置宽度高度背景颜色 */
+            height: 50px;
+            width: 100%;
+            background: #ff9949;
+            linoz-top: 0; /*离顶部的距离为0*/
+        }
+
+        .linoz-top ul {
+            /* 清除ul标签的默认样式 */
+            width: 80%;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+
+        }
+
+        .linoz-top li {
+            float: left; /* 使li内容横向浮动，即横向排列  */
+            margin-right: 50px; /* 两个li之间的距离*/
+        }
+
+        .linoz-top li a {
+            /* 设置链接内容显示的格式*/
+            display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            font-size: 12pt;
+            text-decoration: none; /* 去除下划线 */
+        }
+
+        .linoz-top li a:hover {
+            /* 鼠标选中时背景变为黑色 */
+            background-color: #ffa770;
+        }
+
+        .select {
+            background-color: #ff7d12;
+        }
+
+        .linoz-top ul li ul {
+            /* 设置二级菜单 */
+            width: auto;
+            background: #ff9949;
+            z-index: 3;
+            position: absolute;
+            display: none; /* 默认隐藏二级菜单的内容 */
+
+        }
+
+        .linoz-top ul li ul li {
+            /* 二级菜单li内容的显示 */
+            margin-right: 0;
+            float: none;
+            text-align: center;
+        }
+
+        .linoz-top ul li:hover ul {
+            /* 鼠标选中二级菜单内容时 */
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 标题栏 start -->
+<div class="container" style="margin-bottom: 50px">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="navbar-header" style="margin-left: 15%;">
+                <a class="navbar-brand" href="index" target="_parent">
+                    <img src="../static/img/www.jpg" width="200px" style="margin-top: -10px">
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <form action="search_detail" class="navbar-form navbar-right" style="margin-top:45px; ">
+                <div class="form-group">
+                    <input name="key" type="text" class="form-control"
+                           style="height:40px;width:280px"
+                           placeholder="搜索文章"
+                           value="{{ key }}">
+                </div>
+                <button type="submit" class="btn btn-default" style="height:40px;width:60px">搜索
+                </button>
+            </form>
+        </div>
+        <div class="col-md-3"
+             {% if head.islogin %}style="display: none;"{% endif %}>
+            <div class="nav navbar-nav navbar-right" style="margin-top: 36px;">
+                <!-- 登录注册！ -->
+                <a href="login_page">
+                    <button
+                            style="width: 100%;margin-top: 6px"
+                            type="button"
+                            class="btn btn-info"
+                            onclick="window.location.href='login_page'">
+                        登录
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3"
+             {% if inPersonInfo %}style="display: none;"{% endif %}
+             {% if not head.islogin %}style="display: none;"{% endif %}>
+            <!-- 登陆后 -->
+            <img class="nav navbar-nav navbar-right"
+                 src="{{ head.user_head }}"
+                 style="margin-top: 36px;width: 60px;height: 60px;border-radius: 50%"
+                 onclick="window.location.href='person_info'">
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="linoz-top" style="margin-bottom: 60px">
+    <center>
+        <ul>
+            <li><a {% if isIndex %}class="select"{% endif %} href="index">首页</a></li>
+            <li><a {% if isRedBlack %}class="select"{% endif %} href="red_black_list">企业榜单</a></li>
+            <li><a {% if isJury %}class="select"{% endif %} href="jury_page">评审团</a></li>
+            <li><a {% if isCompany %}class="select"{% endif %} href="company_post">企业通告</a></li>
+        </ul>
+    </center>
+</div>
+{% block content %}
+
+{% endblock %}
+<div class="col-md-12 divMain" style="margin-top: 50px">
+    <hr>
+    <p class="text-center" style="color: #aaaaaa">
+        地址:湖北省武汉市洪山区珞喻路152号　邮编：430079</p>
+    <p style="height: 100px;"></p>
+    <p></p>
+    <p></p>
+</div>
+</body>
+<script>
+    function toDetail(id) {
+        window.location.href = 'post_detail?post_id=' + id
+    }
+</script>
+<script id="complaint_template" type="text/x-jquery-tmpl">
+    <div class="col-md-12" onclick="toDetail(${id})">
+        <div class="center-block">
+        <img src="${pic}" style="float: right" height="100px"/>
+        <h3 style="color: black">${title}</h3>
+        <p style="color: #999;">${content}</p>
+        <div>
+        <button class="btn-xs ${type}">${status}</button>
+        <a href="#" style="color: #999;margin-left: 4px;margin-right: 4px">
+        <span style="font-size: 12px;"
+    class="glyphicon glyphicon-user"></span>
+        <span style="font-size: 13px">${user_name}</span>
+        <span style="font-size: 12px"
+    class="glyphicon glyphicon-comment"></span>
+        <span style="font-size: 14px">${reply_amount}</span>
+        </a>
+        </div>
+        </div>
+        <hr>
+        </div>
+
+
+</script>
+
+</html>

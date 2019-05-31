@@ -1,0 +1,2 @@
+setuptools==39.0.1
+Django==2.2.1

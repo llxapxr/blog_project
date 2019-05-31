@@ -1,0 +1,29 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div id="search_list" class="col-md-8">
+
+            </div>
+
+            <div class="col-md-2"></div>
+
+        </div>
+
+    </div>
+    <script>
+
+        function loadMore() {
+            $.get("search",
+                {key: '{{ key }}'},
+                function (data) {
+                    $('#complaint_template').tmpl(data['list']).appendTo('#search_list');
+                })
+        }
+
+        loadMore()
+    </script>
+{% endblock %}

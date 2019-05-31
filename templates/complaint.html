@@ -1,0 +1,274 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <style type="text/css">
+        .list-group {
+            border: 0px;
+        }
+
+        .list-group-item {
+            border: 0px;
+        }
+
+        .list-group-item {
+            float: left;
+        }
+
+        .ul1, .li1 {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .span1 {
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#telText1").focus(function () {
+                $("#pd1").show();
+            })
+            //$("#telText1").blur(function () {
+            //    $("#pd1").hide();
+            //})
+            $("#qx").click(function () {
+                $("#pd1").hide();
+            })
+        })
+    </script>
+    <!-- 页面主体  -->
+    <div class="container">
+        <!-- 页面内容 start -->
+        <div class="row">
+
+            <div class="col-md-2"></div>
+            <img class="col-md-8">
+            <!-- 文章头 -->
+            <h1 style="font-weight: bold">{{ title }}</h1>
+            <div class="row">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <img src="{{ user_head }}" width="70px"
+                             height="70px"
+                             style="border-radius: 50%">
+                    </div>
+                    <div class="list-group-item" style="margin-top: -10px">
+                        <ul class="ul1">
+                            <li class="li1"><h3>{{ user_name }}</h3></li>
+                            <li class="li1">{{ time }}
+                                <span class="span1">·</span> 评价 {{ amount }}
+                                <span class="span1">·</span> 喜欢 {{ like }}
+                            </li>
+
+                        </ul>
+                    </div>
+                    {#                    <div class="list-group-item" style="float: right;margin-top: 15px">#}
+                    {#                        <div class="btn btn-info" style="float: right">关注</div>#}
+                    {#                    </div>#}
+                </div>
+            </div>
+            <hr>
+            <!-- 文章主体 -->
+            <div style="font-size: 16pt;margin-bottom: 50px">
+                {{ content }}
+            </div>
+            {% for pic in pics %}
+                <img src="{{ pic }}" class="center-block" style="width: 40%;margin-bottom: 50px">
+            {% endfor %}
+            <div class="row">
+                <p style="text-align: center"><span
+                        style="font-weight: bold;font-size: 16px;color: #999999">写的不错，支持一下</span>
+                </p>
+                <p style="text-align: center">
+                    {% if isCollected %}
+                        <button onclick="cancel_collect()" style="font-weight: bold;"
+                                class="btn btn-warning">
+                            取消收藏
+                        </button>
+                    {% else %}
+                        <button onclick="collect()" style="font-weight: bold;"
+                                class="btn btn-danger">
+                            收藏
+                        </button>
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="row" style="margin-top: 30px">
+                <div {% if not head.islogin %}hidden{% endif %}>
+                    <hr>
+                    <div class="col-md-1">
+                        <img src="{{ head.user_head }}" width="50px" style="border-radius: 50%">
+                    </div>
+                    <form id="comment_form" action="post_comment" method="get">
+                        <input name="post_id" value="{{ post_id }}" style="display: none">
+                        <div class="col-md-11">
+                    <textarea name="send_content" id="telText1" class="form-control"
+                              placeholder="最多300个字" rows="3"
+                              style="width: 100%;margin-bottom: 5px"></textarea>
+                        </div>
+                        <div class="col-md-12" hidden id="pd1">
+                            <button type="submit" style="float:right" class="btn btn-info">
+                                发送
+                            </button>
+                            <span style="float: right" class="btn" id="qx">取消</span>
+                        </div>
+                    </form>
+                </div>
+
+                <div style="height: 20px;" class="col-md-12"></div>
+                <p class="col-md-12">
+                    <span style="font-size: 16px;font-weight: bold">{{ amount }}条评论</span>
+                    {#                    <span href="#" id="sj1"#}
+                    {#                          style="color: #000000;float: right;margin-left: 15px">按时间倒序</span>#}
+                    {#                    <span href="#" id="sj2" style="color: #999999;float: right">按时间正序</span>#}
+                </p>
+                <hr class="col-md-12" style="margin-top: 0px">
+
+                <!-- 评论 -->
+                <div class="col-md-12" id="comment_list">
+                    {#                    <div class="col-md-12">#}
+                    {#                        <div class="col-md-1">#}
+                    {#                            <img src="../static/img/user.png" width="40px"#}
+                    {#                                 style="border-radius: 50%">#}
+                    {#                        </div>#}
+                    {#                        <div class="col-md-11">#}
+                    {#                            <ul class="ul1" style="">#}
+                    {#                                <li class="li1"><span style="font-size: 16px">张三</span></li>#}
+                    {#                                <li class="li1" style="font-size: 12px;color: #999999">1楼 <span#}
+                    {#                                        class="span1">·</span>#}
+                    {#                                    1202.02.12 12:13#}
+                    {#                                </li>#}
+                    {#                            </ul>#}
+                    {#                        </div>#}
+                    {#                        <div style="height: 15px;" class="col-md-12"></div>#}
+                    {#                        <p class="col-md-12" style="font-size: 16px">我杆菌不行，#}
+                    {#                            23333333333333333333333333333333333333</p>#}
+                    {#                        <div style="height: 0px;" class="col-md-12"></div>#}
+                    {#                        <p class="col-md-12" style="color: #999999">#}
+                    {#                            <span class="glyphicon glyphicon-thumbs-up"></span>#}
+                    {#                            <span style="margin-left: 3px;font-size: 16px">赞</span>#}
+                    {#                            <span style="margin-left: 15px;"#}
+                    {#                                  class="glyphicon glyphicon-comment"></span>#}
+                    {#                            <span style="margin-left: 3px;font-size: 16px">回复</span>#}
+                    {#                        </p>#}
+                    {##}
+                    {#                    </div>#}
+                    {#                    <hr class="col-md-12">#}
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+    <!-- 页面内容 end -->
+
+    </div>
+
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var dsq;
+            $("#tj1").click(function () {
+                alert(dsq);
+            })
+            $(".modal-body > div >div>span").click(function () {
+                var all = $(".modal-body >div>div>span");
+                all.css("color", "#000000");
+                all.css("background", "#ffffff");
+
+
+                var object = $(this);
+                var o = object[0];
+                dsq = o.innerText;
+                o.style.color = "#ffffff";
+                o.style.background = "#ea6f5a";
+            })
+
+
+            $("#sj1").click(function () {
+                $("#sj2").css("color", "#999999")
+                $("#sj1").css("color", "#000000")
+            })
+            $("#sj2").click(function () {
+                $("#sj1").css("color", "#999999")
+                $("#sj2").css("color", "#000000")
+            })
+        })
+
+        function collect() {
+            $.get("complaint_collect",
+                {post_id: '{{ post_id }}'},
+                function (data) {
+                    if (data.result) {
+                        alert('收藏成功')
+                        location.reload()
+                    }
+                    else
+                        alert('收藏失败')
+                })
+        }
+
+        function cancel_collect() {
+            $.get("complaint_cancel_collect",
+                {post_id: '{{ post_id }}'},
+                function (data) {
+                    if (data.result) {
+                        alert('取消收藏成功')
+                        location.reload()
+                    }
+                    else
+                        alert('取消收藏失败')
+                })
+        }
+
+        function loadMore() {
+            $.get("post_reply",
+                {
+                    post_id: '{{ post_id }}'
+                },
+                function (data) {
+                    l = data['list']
+                    num = 1
+                    for (let e of l) {
+                        html_str = '                    <div class="col-md-12">\n' +
+                            '                        <div class="col-md-1">\n' +
+                            '                            <img src="' +
+                            e.user_head +
+                            '" width="40px"\n' +
+                            '                                 style="border-radius: 50%;width:50px;height:50px">\n' +
+                            '                        </div>\n' +
+                            '                        <div class="col-md-11">\n' +
+                            '                            <ul class="ul1" style="">\n' +
+                            '                                <li class="li1"><span style="font-size: 16px">' +
+                            e.user_name +
+                            '</span></li>\n' +
+                            '                                <li class="li1" style="font-size: 12px;color: #999999">' +
+                            num +
+                            '楼 <span\n' +
+                            '                                        class="span1">·</span>\n' +
+                            e.time +
+                            '                                </li>\n' +
+                            '                            </ul>\n' +
+                            '                        <div style="height: 15px;" class="col-md-12"></div>\n' +
+                            '                        <p style="font-size: 16px">' +
+                            e.content +
+                            '                        </div>\n' +
+                            '                        <div style="height: 0px;" class="col-md-12"></div>\n' +
+                            '                    </div>\n' +
+                            '                    <hr class="col-md-12">'
+                        $("#comment_list").append(html_str)
+                        num++
+                    }
+                })
+        }
+
+        loadMore()
+    </script>
+{% endblock %}

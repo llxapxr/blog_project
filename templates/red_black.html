@@ -1,0 +1,69 @@
+{% extends "head_foot.html" %}
+{% block content %}
+    <style>
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .list-group #hh_red_first {
+            background: #A00404;
+            font-family: "微软雅黑";
+        }
+
+        .list-group #hh_black_first {
+            background: black;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <div class="container">
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item" id="hh_red_first" ;>
+                        <span class="text " style="color: white; ">品牌满意榜</span>
+                    </li>
+                    {% for e in red_list %}
+                        <li class="list-group-item ">
+                            <span class="num ">{{ e.num }}</span>
+                            <span class="text ">{{ e.company_name }}</span>
+                            <span>
+								<img src="{{ e.company_head }}"
+                                     style="width: 50px; ">
+							</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item" id="hh_black_first" ;>
+                        <span class="text " style="color: white; ">品牌吐槽榜</span>
+                    </li>
+                    {% for e in black_list %}
+                        <li class="list-group-item ">
+                            <span class="num ">{{ e.num }}</span>
+                            <span class="text ">{{ e.company_name }}</span>
+                            <span>
+								<img src="{{ e.company_head }}"
+                                     style="width: 50px; ">
+							</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <div class="col-md-2">
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
