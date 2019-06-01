@@ -109,10 +109,16 @@ def post_complain(request):
         company = models.company(company_name=post_brand, company_head='', company_introduce='')
         company.save()
 
+    try:
+        category = models.category.objects.get(id=1)
+    except models.category.DoesNotExist:
+        category = models.category(category_name='未分类')
+        category.save()
+
     complain = models.complaint(brand_id=company, product=post_product, title=post_title,
                                 content=post_content,
                                 user_id=models.user.objects.get(id=user_data['user_id']),
-                                category_id=models.category.objects.get(id=1),
+                                category_id=category,
                                 pic=names if names else '',
                                 reply_amount=0,
                                 status=0)

@@ -49,11 +49,26 @@ def register(request):
 
 
 def logout(request):
+    pic1 = tool.getOnePicPath(tool.getStaticData('pic1'))
+    pic2 = tool.getOnePicPath(tool.getStaticData('pic2'))
+    pic3 = tool.getOnePicPath(tool.getStaticData('pic3'))
+    pic1_title = tool.getStaticData('pic1_title')
+    pic2_title = tool.getStaticData('pic2_title')
+    pic3_title = tool.getStaticData('pic3_title')
+    pic_ad = tool.getOnePicPath(tool.getStaticData('pic_ad'))
     response = render(request, 'index.html', {
         'head': {
             'islogin': False,
         },
-        'title': '主页'
+        'title': '主页',
+        'isIndex': True,
+        'pic_ad': pic_ad,
+        'pic1': pic1,
+        'pic2': pic2,
+        'pic3': pic3,
+        'pic1_title': pic1_title,
+        'pic2_title': pic2_title,
+        'pic3_title': pic3_title
     })
     response.delete_cookie('user_id')
     return response

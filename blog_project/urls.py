@@ -65,7 +65,7 @@ urlpatterns = [
     re_path(r'^person_reply$', person_info.person_reply),
     # 帖详情
     re_path(r'^post_detail$', complaint_detail.complaint_detail),
-    re_path(r'^post_jury$', complaint_detail.complaint_jury),
+    re_path(r'^post_top$', complaint_detail.complaint_top),
     re_path(r'^post_reply$', complaint_detail.complaint_reply),
     re_path(r'^post_comment$', complaint_detail.complaint_comment),
     re_path(r'^complaint_collect$', complaint_detail.complaint_collect),
