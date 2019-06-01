@@ -29,7 +29,9 @@ def index(request):
 
 
 def write_page(request):
-    return render(request, 'blog_write.html')
+    return render(request, 'blog_write.html', {
+        'head': tool.getOnlineUser(request)
+    })
 
 
 def carousel_map(request):
